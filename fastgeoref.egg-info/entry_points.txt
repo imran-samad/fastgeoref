@@ -1,0 +1,6 @@
+[console_scripts]
+fastgeoref-datagen = fastgeoref.datagen:gui_entry
+fastgeoref-georef = fastgeoref.georef:gui_entry
+fastgeoref-modelbuild = fastgeoref.modelbuild:gui_entry
+fastgeoref-objtrackauto = fastgeoref.objtrackauto:gui_entry
+fastgeoref-objtrackmanual = fastgeoref.objtrackmanual:gui_entry
