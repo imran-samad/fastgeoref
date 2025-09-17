@@ -16,8 +16,6 @@ FastGeoRef is a Python package designed to streamline the process of detecting, 
 
 ## Installation
 
-Clone this repository and install locally:
-
 ```bash
 pip install git+https://github.com/imran-samad/fastgeoref.git
 ```
@@ -99,7 +97,7 @@ The package's five core functions can be accessed via command-line entry points,
 - **Outputs:** geo-referenced detections (`*_tracks_geo-referenced.csv`).  
 
 ### 5. Manual Object Tracking & Geo-referencing
-- **GUI Command:** `fastgeoref-objtrackmanual`  
+- **GUI Command:** `fastgeoref.run_manual_tracking()`  
 - **Summary:** Manual clicks to track & geo-reference animals.  
 - **Inputs:** video info, logs, output folder, offsets, resolutions, FOV.  
 - **Outputs:** raw CSV, geo-referenced CSV.  
@@ -122,7 +120,7 @@ Located in `tracking_functions.py`:
 Run the example pipeline:
 
 ```bash
-python examples/example_script.py
+python example script/example_script.py
 ```
 
 Outputs for `DJI_0001.MP4` are included.  
