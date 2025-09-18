@@ -61,9 +61,7 @@ The package requires Python 3.9+ and:
 - shapely==2.0.6  
 - scipy==1.11.3  
 - tensorflow==2.14.0  
-- opencv-python  
-
-For subsequent analysis of animal groups/clusters, an R script (`Processing_animal_tracks.R`) is available.  
+- opencv-python
 
 ---
 
