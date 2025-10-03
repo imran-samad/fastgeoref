@@ -160,23 +160,25 @@ def gui_entry():
     # --- Run button ---
     def run_clicked():
         try:
-            for key, entry in inputs.items():
-                # Convert numbers where appropriate
-                val = entry.get()
-                try:
-                    inputs[key] = float(val) if "." in val else int(val)
-                except ValueError:
-                    inputs[key] = val  # keep as string if not numeric
-            root.destroy()
+            # for key, entry in inputs.items():
+            #     # Convert numbers where appropriate
+            #     val = entry.get()
+            #     try:
+            #         inputs[key] = float(val) if "." in val else int(val)
+            #     except ValueError:
+            #         inputs[key] = val  # keep as string if not numeric
+            # root.destroy()
             
-            filename = inputs["Filename"].get()
-            video_path = inputs["Video path"].get()
-            output_directory = inputs["Output directory"].get()
-            window_resize_factor = float(inputs["Window resize factor"].get())
-            frame_rate = int(inputs["Frame rate"].get())
-            image_width = int(inputs["Image width (px)"].get())
-            image_height = int(inputs["Image height (px)"].get())
-            grabsize = int(inputs["Grabsize (px)"].get())
+            filename = inputs["video_filename"].get()
+            video_path = inputs["video_path"].get()
+            output_directory = inputs["tracks_path"].get()
+            window_resize_factor = float(inputs["window_resize_factor"].get())
+            frame_rate = int(inputs["frame_rate"].get())
+            image_width = int(inputs["image_width"].get())
+            image_height = int(inputs["image_height"].get())
+            grabsize = int(inputs["grabsize"].get())
+            
+            root.destroy()
             
             run_extraction(filename, video_path, output_directory,
                            window_resize_factor, frame_rate,

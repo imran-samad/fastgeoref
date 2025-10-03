@@ -20,14 +20,20 @@ def get_inputs():
     root = tk.Tk()
     root.title("ObjTrackAuto Settings")
 
-    inputs = {}
+    final_inputs = {}
 
     def select_video():
         path = filedialog.askopenfilename(filetypes=[("Video files", "*.mp4;*.avi")])
         if path:
             video_entry.delete(0, tk.END)
             video_entry.insert(0, path)
-
+            
+    # def select_model():
+    #     path = filedialog.askopenfilename(filetypes=[("Keras Model", "*.h5;*h5py")])
+    #     if path:
+    #         model_entry.delete(0, tk.END)
+    #         model_entry.insert(0, path)
+            
     def select_model():        
         path = filedialog.askdirectory()
         if path:
@@ -45,7 +51,7 @@ def get_inputs():
     video_entry.grid(row=0, column=1)
     tk.Button(root, text="Browse", command=select_video).grid(row=0, column=2)
 
-    tk.Label(root, text="Model Folder:").grid(row=1, column=0, sticky="e")
+    tk.Label(root, text="Model Folder (don't browse inside the folder):").grid(row=1, column=0, sticky="e")
     model_entry = tk.Entry(root, width=50)
     model_entry.grid(row=1, column=1)
     tk.Button(root, text="Browse", command=select_model).grid(row=1, column=2)
@@ -70,36 +76,41 @@ def get_inputs():
         "detection_start_time": 0, # the time in seconds from where detections need to start
         "frame_rate": 30 #fps
     }
-
+    
+    param_entries = {}
     row = 3
     for key, default in params.items():
         tk.Label(root, text=f"{key}:").grid(row=row, column=0, sticky="e")
         entry = tk.Entry(root)
         entry.insert(0, str(default))
         entry.grid(row=row, column=1)
-        inputs[key] = entry
+        param_entries[key] = entry
         row += 1
 
     def submit():
-        inputs["video_file"] = video_entry.get()
-        inputs["model_folder"] = model_entry.get()
-        inputs["output_dir"] = output_entry.get()
-        for key in params.keys():
-            inputs[key] = float(inputs[key].get()) if "." in inputs[key].get() else int(inputs[key].get())
+        # Collect all values into a clean dictionary
+        final_inputs["video_file"] = video_entry.get()
+        final_inputs["model_folder"] = model_entry.get()
+        final_inputs["output_dir"] = output_entry.get()
+        for key, entry in param_entries.items():
+            val = entry.get()
+            try:
+                final_inputs[key] = float(val) if "." in val else int(val)
+            except ValueError:
+                final_inputs[key] = val
         root.destroy()
-        root.update()  # ensures any remaining Tkinter events are handled
 
     tk.Button(root, text="Start", command=submit).grid(row=row, column=1, pady=10)
     root.mainloop()
 
-    return inputs
+    return final_inputs
 
 # ---------------------------
 # Main processing script
 # ---------------------------
 
 def process_video(settings):
-    settings = get_inputs()
+    #settings = get_inputs()
 
     movie_name = settings["video_file"]
     model_name = settings["model_folder"]

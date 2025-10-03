@@ -79,6 +79,23 @@ def run_georef(params):
         [tracked_dtns_filtered1.reset_index(drop=True), data_pos.reset_index(drop=True)],
         axis=1,
     )
+    
+    tracked_dtns1 = tracked_dtns1.rename(columns={
+    tracked_dtns1.columns[0]: 'pix_coord_tl_x',
+    tracked_dtns1.columns[1]: 'pix_coord_tl_y',
+    tracked_dtns1.columns[2]: 'pix_coord_bl_x',
+    tracked_dtns1.columns[3]: 'pix_coord_bl_y',
+    tracked_dtns1.columns[4]: 'pix_coord_br_x',
+    tracked_dtns1.columns[5]: 'pix_coord_br_y',
+    tracked_dtns1.columns[6]: 'pix_coord_tr_x',
+    tracked_dtns1.columns[7]: 'pix_coord_tr_y',
+    tracked_dtns1.columns[8]: 'ID_prob',
+    tracked_dtns1.columns[9]: 'ID',
+    tracked_dtns1.columns[10]: 'Tracking_YN',
+    tracked_dtns1.columns[11]: 'time_since_update',
+    tracked_dtns1.columns[12]: 'frame_no'
+    })
+    
     output_file = f"{track_path}/{filename}_tracks_geo-referenced.csv"
     tracked_dtns1.to_csv(output_file, index=False)
 

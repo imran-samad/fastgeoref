@@ -128,23 +128,6 @@ def pix_to_pos(data, df_flight, srt_dt, time_off, height_ft_off, log_freq, h_pix
     df_final = pd.merge(df_final, df_check[['video_time', 'gimbal_move', 'yaw_move']], on='video_time', how='left')
 
     df_final['drone_moving'] = ((df_final['OSD.hSpeed [MPH]'] > 3) | (df_final['gimbal_move'] == True) | (df_final['yaw_move'] == True)).astype(int)#if the drone is moving above ~5kmph
-
-    df_final = df_final.rename(columns={
-    df_final.columns[0]: 'pix_coord_tl_x',
-    df_final.columns[1]: 'pix_coord_tl_y',
-    df_final.columns[2]: 'pix_coord_bl_x',
-    df_final.columns[3]: 'pix_coord_bl_y',
-    df_final.columns[4]: 'pix_coord_br_x',
-    df_final.columns[5]: 'pix_coord_br_y',
-    df_final.columns[6]: 'pix_coord_tr_x',
-    df_final.columns[7]: 'pix_coord_tr_y',
-    df_final.columns[8]: 'ID_prob',
-    df_final.columns[9]: 'ID',
-    df_final.columns[10]: 'Tracking_YN',
-    df_final.columns[11]: 'time_since_update',
-    df_final.columns[12]: 'frame_no'
-    })
-
     
     return df_final
 
