@@ -76,7 +76,7 @@ The package requires Python 3.9+ and:
 - shapely==2.0.6  
 - scipy==1.11.3  
 - tensorflow==2.14.0  
-- opencv-python
+- opencv-python==4.8.1.78
 
 ---
 
