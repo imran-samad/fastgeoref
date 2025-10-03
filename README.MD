@@ -72,7 +72,7 @@ The package requires Python 3.9+ and:
 - scikit-learn==1.3.2  
 - pandas==2.1.1  
 - filterpy==1.4.5  
-- pysrt  
+- pysrt==1.1.2
 - shapely==2.0.6  
 - scipy==1.11.3  
 - tensorflow==2.14.0  
