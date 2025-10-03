@@ -55,53 +55,56 @@ def run_manual_tracking(params):
     tot_time = time.strftime("%M:%S", time.gmtime(total_frames / frame_rate))
 
     while True:
-        if playing:
-            ret, frame = cap.read()
-            elapsed_time = current_frame / frame_rate
-            current_time = time.strftime("%M:%S", time.gmtime(elapsed_time))
-            if not ret:
+        try:
+            if playing:
+                ret, frame = cap.read()
+                elapsed_time = current_frame / frame_rate
+                current_time = time.strftime("%M:%S", time.gmtime(elapsed_time))
+                if not ret:
+                    break
+    
+                # Display time overlay
+                cv2.putText(frame, current_time, (20, 100),
+                            cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 0, 255), 3)
+                cv2.putText(frame, "|" + tot_time, (290, 100),
+                            cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 0, 255), 3)
+                frame = cv2.resize(frame,
+                                   (int(image_width / window_resize_factor),
+                                    int(image_height / window_resize_factor)))
+                cv2.imshow("video", frame)
+                current_frame += 1
+    
+            key = cv2.waitKey(1)
+    
+            if key == 27:  # esc = quit
                 break
-
-            # Display time overlay
-            cv2.putText(frame, current_time, (20, 100),
-                        cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 0, 255), 3)
-            cv2.putText(frame, "|" + tot_time, (290, 100),
-                        cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 0, 255), 3)
-            frame = cv2.resize(frame,
-                               (int(image_width / window_resize_factor),
-                                int(image_height / window_resize_factor)))
-            cv2.imshow("video", frame)
-            current_frame += 1
-
-        key = cv2.waitKey(1)
-
-        if key == 27:  # esc = quit
-            break
-
-        elif key == 32:  # spacebar = pause and click
-            playing = not playing
-            cv2.namedWindow("image", cv2.WINDOW_NORMAL)
-            cv2.resizeWindow("image",
-                             int(image_width / window_resize_factor),
-                             int(image_height / window_resize_factor))
-            cv2.imshow("image", frame)
-            cv2.setMouseCallback("image", click_event)
-            k1 = cv2.waitKey(0)
-            if k1 != -1:
-                cv2.destroyWindow("image")
+    
+            elif key == 32:  # spacebar = pause and click
                 playing = not playing
-
-        elif playing:
-            if key == ord("z"):  # rewind 5s
-                current_frame = max(0, current_frame - 5 * frame_rate)
-                cap.set(cv2.CAP_PROP_POS_FRAMES, current_frame)
-            elif key == ord("x"):  # forward 5s
-                current_frame = min(total_frames,
-                                    current_frame + 5 * frame_rate)
-                cap.set(cv2.CAP_PROP_POS_FRAMES, current_frame)
-
-    cap.release()
-    cv2.destroyAllWindows()
+                cv2.namedWindow("image", cv2.WINDOW_NORMAL)
+                cv2.resizeWindow("image",
+                                 int(image_width / window_resize_factor),
+                                 int(image_height / window_resize_factor))
+                cv2.imshow("image", frame)
+                cv2.setMouseCallback("image", click_event)
+                k1 = cv2.waitKey(0)
+                if k1 != -1:
+                    cv2.destroyWindow("image")
+                    playing = not playing
+    
+            elif playing:
+                if key == ord("z"):  # rewind 5s
+                    current_frame = max(0, current_frame - 5 * frame_rate)
+                    cap.set(cv2.CAP_PROP_POS_FRAMES, current_frame)
+                elif key == ord("x"):  # forward 5s
+                    current_frame = min(total_frames,
+                                        current_frame + 5 * frame_rate)
+                    cap.set(cv2.CAP_PROP_POS_FRAMES, current_frame)
+        except KeyboardInterrupt:
+            print("⛔ Interrupted by user, shutting down...")
+        finally:
+            cap.release()
+            cv2.destroyAllWindows()
 
     # --- Save raw tracks ---
     tracked_dtns = pd.DataFrame({

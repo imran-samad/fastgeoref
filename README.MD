@@ -130,7 +130,7 @@ Located in `tracking_functions.py`:
 
 ## Working Example
 
-Run the example pipeline:
+Use the example pipeline to call the different functions:
 
 ```bash
 python example script/example_script.py
