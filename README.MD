@@ -16,6 +16,21 @@ FastGeoRef is a Python package designed to streamline the process of detecting, 
 
 ## Installation
 
+The package is designed to work with python v3.9. Other versions may cause incompatibility issues and therefore creating a virtual environment through conda with python v3.9 is recommended
+
+Step 1: To install (mini)conda visit https://www.anaconda.com/docs/getting-started/miniconda/install
+
+Step 2: Run the anaconda prompt
+
+Step 3 create and activate a virtual environment using the command
+
+```bash
+conda create -n <env_name> python==3.9
+conda activate <env_name>
+```
+
+Step 4: install the FastGeoRef package
+
 ```bash
 pip install git+https://github.com/imran-samad/fastgeoref.git
 ```
