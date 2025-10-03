@@ -14,8 +14,7 @@ dependencies = [
     "pysrt==1.1.2",
     "shapely==2.0.6",
     "scipy==1.11.3",
-    "tensorflow==2.14.0",
-    "os"
+    "tensorflow==2.14.0"
 ]
 
 [project.scripts]
